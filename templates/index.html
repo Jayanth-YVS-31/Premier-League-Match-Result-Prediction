@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <style>
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(to right, #0d1b2a, #1d3557); /* Soccer-themed background */
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; /* Align from the top */
+            padding: 20px;
+        }
+
+        main {
+            background: rgba(255, 255, 255, 0.1); /* Semi-transparent background */
+            border-radius: 20px;
+            padding: 40px;
+            width: 90%;
+            max-width: 800px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(15px);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 3em;
+            font-weight: bold;
+            color: #e63946;
+            margin-bottom: 20px;
+        }
+
+        h5 p {
+            text-align: center;
+            font-size: 1.2em;
+            color: #f1faee;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column; /* Arrange form elements vertically */
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        label {
+            font-size: 1.2em;
+            color: #f1faee;
+            width: 100%;
+        }
+
+        select, input {
+            padding: 12px;
+            font-size: 1em;
+            border-radius: 10px;
+            border: 2px solid #e63946;
+            background: #1d3557;
+            color: #fff;
+            width: 100%; /* Ensure inputs take full width */
+            transition: background 0.3s ease;
+        }
+
+        select:focus, input:focus {
+            background: #e63946;
+            border-color: #fff;
+            outline: none;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.5em;
+            background-color: #2a9d8f;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #264653;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 2em;
+            margin-top: 20px;
+            color: #f1faee;
+            font-weight: bold;
+            padding: 20px;
+            background: #e63946;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 1.2em;
+            color: #e63946;
+        }
+
+        footer h4 {
+            font-size: 1.5em;
+        }
+
+        /* Media Queries for responsiveness */
+        @media (max-width: 768px) {
+            form {
+                gap: 10px;
+            }
+        }
+     </style>
+    <title>Premier League Match Predictor</title>
+</head>
+<body>
+    <main>
+        <h1>Premier League Match Predictor</h1>
+        <h5><p>Only Premier League teams!</p></h5>
+        <form id="matchForm">
+            <!-- Wk Dropdown -->
+            <label for="week">Week:</label>
+            <select id="week" name="week" required>
+                <option value="Early">Early</option>
+                <option value="Mid">Mid</option>
+                <option value="End">End</option>
+            </select>
+
+            <!-- Date Picker -->
+            <label for="matchDate">Date:</label>
+            <input type="date" id="matchDate" name="matchDate" required>
+
+            <!-- Home Team Section -->
+            <!-- Home Team Section -->
+<label for="homeTeam">Home Team:</label> 
+<select id="homeTeam" name="homeTeam" required> 
+    <option value="0">Coventry City</option> 
+    <option value="1">Leeds United</option> 
+    <option value="2">Sheffield Utd</option> 
+    <option value="3">Crystal Palace</option>
+    <option value="4">Arsenal</option>
+    <option value="5">Ipswich Town</option>
+    <option value="6">Everton</option>
+    <option value="7">Southampton</option>
+    <option value="8">Chelsea</option>
+    <option value="9">Nott'ham Forest</option>
+    <option value="10">Manchester City</option>
+    <option value="11">Blackburn</option>
+    <option value="12">Wimbledon</option>
+    <option value="13">Tottenham</option>
+    <option value="14">Liverpool</option>
+    <option value="15">Aston Villa</option>
+    <option value="16">Oldham Athletic</option>
+    <option value="17">Middlesbrough</option>
+    <option value="18">Norwich City</option>
+    <option value="19">QPR</option>
+    <option value="20">Manchester Utd</option>
+    <option value="21">Sheffield Weds</option>
+    <option value="22">Newcastle Utd</option>
+    <option value="23">West Ham</option>
+    <option value="24">Swindon Town</option>
+    <option value="25">Leicester City</option>
+    <option value="26">Bolton</option>
+    <option value="27">Sunderland</option>
+    <option value="28">Derby County</option>
+    <option value="29">Barnsley</option>
+    <option value="30">Charlton Ath</option>
+    <option value="31">Watford</option>
+    <option value="32">Bradford City</option>
+    <option value="33">Fulham</option>
+    <option value="34">West Brom</option>
+    <option value="35">Birmingham City</option>
+    <option value="36">Wolves</option>
+    <option value="37">Portsmouth</option>
+    <option value="38">Wigan Athletic</option>
+    <option value="39">Reading</option>
+    <option value="40">Stoke City</option>
+    <option value="41">Hull City</option>
+    <option value="42">Burnley</option>
+    <option value="43">Blackpool</option>
+    <option value="44">Swansea City</option>
+    <option value="45">Cardiff City</option>
+    <option value="46">Bournemouth</option>
+    <option value="47">Huddersfield</option>
+    <option value="48">Brighton</option>
+    <option value="49">Brentford</option>
+</select>
+
+
+            <label for="lastHomeResult">Last Home Team Match Result:</label>
+            <select id="lastHomeResult" required>
+                <option value="0">Loss</option>
+                <option value="1">Draw</option>
+                <option value="2">Win</option>
+            </select>
+
+            <label for="homeStreak">Home Team Win in Last 5 Matches:</label>
+            <input type="number" id="homeStreak" required>
+
+            <label for="homeRestDays">Home Team Rest Days:</label>
+            <input type="number" id="homeRestDays" required>
+
+            <!-- Away Team Section -->
+            <!-- Home Team Section -->
+<label for="awayTeam">Home Team:</label> 
+<select id="awayTeam" name="awayTeam" required> 
+    <option value="0">Coventry City</option> 
+    <option value="1">Leeds United</option> 
+    <option value="2">Sheffield Utd</option> 
+    <option value="3">Crystal Palace</option>
+    <option value="4">Arsenal</option>
+    <option value="5">Ipswich Town</option>
+    <option value="6">Everton</option>
+    <option value="7">Southampton</option>
+    <option value="8">Chelsea</option>
+    <option value="9">Nott'ham Forest</option>
+    <option value="10">Manchester City</option>
+    <option value="11">Blackburn</option>
+    <option value="12">Wimbledon</option>
+    <option value="13">Tottenham</option>
+    <option value="14">Liverpool</option>
+    <option value="15">Aston Villa</option>
+    <option value="16">Oldham Athletic</option>
+    <option value="17">Middlesbrough</option>
+    <option value="18">Norwich City</option>
+    <option value="19">QPR</option>
+    <option value="20">Manchester Utd</option>
+    <option value="21">Sheffield Weds</option>
+    <option value="22">Newcastle Utd</option>
+    <option value="23">West Ham</option>
+    <option value="24">Swindon Town</option>
+    <option value="25">Leicester City</option>
+    <option value="26">Bolton</option>
+    <option value="27">Sunderland</option>
+    <option value="28">Derby County</option>
+    <option value="29">Barnsley</option>
+    <option value="30">Charlton Ath</option>
+    <option value="31">Watford</option>
+    <option value="32">Bradford City</option>
+    <option value="33">Fulham</option>
+    <option value="34">West Brom</option>
+    <option value="35">Birmingham City</option>
+    <option value="36">Wolves</option>
+    <option value="37">Portsmouth</option>
+    <option value="38">Wigan Athletic</option>
+    <option value="39">Reading</option>
+    <option value="40">Stoke City</option>
+    <option value="41">Hull City</option>
+    <option value="42">Burnley</option>
+    <option value="43">Blackpool</option>
+    <option value="44">Swansea City</option>
+    <option value="45">Cardiff City</option>
+    <option value="46">Bournemouth</option>
+    <option value="47">Huddersfield</option>
+    <option value="48">Brighton</option>
+    <option value="49">Brentford</option>
+</select>
+
+
+            <label for="lastAwayResult">Last Away Team Match Result:</label>
+            <select id="lastAwayResult" required>
+                <option value="0">Loss</option>
+                <option value="1">Draw</option>
+                <option value="2">Win</option>
+            </select>
+
+            <label for="awayStreak">Away Team Win in Last 5 Matches:</label>
+            <input type="number" id="awayStreak" required>
+
+            <label for="awayRestDays">Away Team Rest Days:</label>
+            <input type="number" id="awayRestDays" required>
+
+            <button type="submit">Predict Now!</button>
+        </form>
+
+        <h3 id="result"></h3>
+        <footer>
+            <h4>A Predictor by Y.V.S.JAYANTH</h4>
+        </footer>
+
+        <script>
+            document.getElementById('matchForm').addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                // Collect form data
+                const formData = {
+                    week: document.getElementById('week').value,
+                    date: document.getElementById('matchDate').value,
+                    homeTeam: document.getElementById('homeTeam').value,
+                    awayTeam: document.getElementById('awayTeam').value,
+                    lastHomeResult: document.getElementById('lastHomeResult').value,
+                    homeStreak: document.getElementById('homeStreak').value,
+                    homeRestDays: document.getElementById('homeRestDays').value,
+                    lastAwayResult: document.getElementById('lastAwayResult').value,
+                    awayStreak: document.getElementById('awayStreak').value,
+                    awayRestDays: document.getElementById('awayRestDays').value
+                };
+
+                try {
+                    // Send data to the Flask API
+                    const response = await fetch('http://127.0.0.1:5000/predict', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(formData)
+                    });
+
+                    // Parse the response and display the prediction
+                    const result = await response.json();
+                    document.getElementById('result').innerText = `Prediction: ${result.prediction}`;
+                } catch (error) {
+                    console.error('Error:', error);
+                    document.getElementById('result').innerText = 'Error in prediction';
+                }
+            });
+        </script>
+    </main>
+</body>
+</html>

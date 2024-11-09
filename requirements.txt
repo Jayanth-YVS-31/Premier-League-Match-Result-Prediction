@@ -1,0 +1,10 @@
+numpy
+pandas
+matplotlib
+seaborn
+flask
+joblib
+scikit-learn
+catboost
+xgboost
+dill
