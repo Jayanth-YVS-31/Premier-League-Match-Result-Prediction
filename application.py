@@ -64,18 +64,19 @@ def predict():
         season_phase = week_mapping.get(week, -1)
 
         input_data = {
-    'HomeWinStreak_5': int(homeStreak) if homeStreak is not None else 0,
-    'AwayWinStreak_5': int(awayStreak) if awayStreak is not None else 0,
-    'LastHomeResult': int(lastHomeResult) if lastHomeResult is not None else 0,
-    'LastAwayResult': int(lastAwayResult) if lastAwayResult is not None else 0,
+    'HomeWinStreak_5': homeStreak if homeStreak is not None else 0,  # Default 0 if None
+    'AwayWinStreak_5': awayStreak if awayStreak is not None else 0,  # Default 0 if None
+    'LastHomeResult': lastHomeResult if lastHomeResult is not None else 0,  # Default 0 if None
+    'LastAwayResult': lastAwayResult if lastAwayResult is not None else 0,  # Default 0 if None
     'SeasonPhase_Early': 1 if season_phase == 0 else 0,
     'SeasonPhase_Mid': 1 if season_phase == 1 else 0,
     'SeasonPhase_End': 1 if season_phase == 2 else 0,
-    'DaysSinceLastHomeMatch': int(homeRestDays) if homeRestDays is not None else 0,
-    'DaysSinceLastAwayMatch': int(awayRestDays) if awayRestDays is not None else 0,
-    'Home_team': int(home_team_mapping.get(home_team, -1)),
-    'Away_team': int(home_team_mapping.get(away_team, -1))
+    'DaysSinceLastHomeMatch': homeRestDays if homeRestDays is not None else 0,  # Default 0 if None
+    'DaysSinceLastAwayMatch': awayRestDays if awayRestDays is not None else 0,  # Default 0 if None
+    'Home_team': home_team_mapping.get(home_team, -1),  # Default -1 if team not found in mapping
+    'Away_team': home_team_mapping.get(away_team, -1)  # Default -1 if team not found in mapping
 }
+
 
 
 
