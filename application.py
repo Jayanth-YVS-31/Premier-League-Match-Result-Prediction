@@ -1,10 +1,17 @@
+from flask import Flask, request, jsonify
+import pandas as pd
+import joblib  # or pickle if you're using that to load models
+
+app = Flask(__name__)
+
+meta_model_3 = joblib.load('models\meta_model_3.pkl')
+tuned_meta_model_2 = joblib.load('models\tuned_meta_model_2.pkl')
+
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Get the data from the POST request
         data = request.json
         
-        # Extract relevant fields from the data
         week = data.get('week')
         home_team = data.get('homeTeam')
         away_team = data.get('awayTeam')
@@ -15,27 +22,11 @@ def predict():
         awayStreak = data.get('awayStreak')
         awayRestDays = data.get('awayRestDays')
 
-        # Preprocessing (mapping weeks and teams)
         week_mapping = {'Early': 0, 'Mid': 1, 'End': 2}
-        home_team_mapping = {
-            'Coventry City': 0, 'Leeds United': 1, 'Sheffield Utd': 2, 'Crystal Palace': 3,
-            'Arsenal': 4, 'Ipswich Town': 5, 'Everton': 6, 'Southampton': 7, 'Chelsea': 8, 
-            "Nott'ham Forest": 9, 'Manchester City': 10, 'Blackburn': 11, 'Wimbledon': 12,
-            'Tottenham': 13, 'Liverpool': 14, 'Aston Villa': 15, 'Oldham Athletic': 16,
-            'Middlesbrough': 17, 'Norwich City': 18, 'QPR': 19, 'Manchester Utd': 20,
-            'Sheffield Weds': 21, 'Newcastle Utd': 22, 'West Ham': 23, 'Swindon Town': 24,
-            'Leicester City': 25, 'Bolton': 26, 'Sunderland': 27, 'Derby County': 28,
-            'Barnsley': 29, 'Charlton Ath': 30, 'Watford': 31, 'Bradford City': 32,
-            'Fulham': 33, 'West Brom': 34, 'Birmingham City': 35, 'Wolves': 36, 'Portsmouth': 37,
-            'Wigan Athletic': 38, 'Reading': 39, 'Stoke City': 40, 'Hull City': 41,
-            'Burnley': 42, 'Blackpool': 43, 'Swansea City': 44, 'Cardiff City': 45,
-            'Bournemouth': 46, 'Huddersfield': 47, 'Brighton': 48, 'Brentford': 49
-        }
+        home_team_mapping = { ... }  
 
-        # Map the 'week' to its corresponding value
         season_phase = week_mapping.get(week, -1)
 
-        # Prepare the input data for the model
         input_data = {
             'HomeWinStreak_5': homeStreak,
             'AwayWinStreak_5': awayStreak,
@@ -50,18 +41,18 @@ def predict():
             'Away_team': home_team_mapping.get(away_team, -1)
         }
 
-        # Convert to DataFrame (if needed by the model)
         input_df = pd.DataFrame([input_data])
 
-        # Predict using the two models
         prediction_3 = meta_model_3.predict(input_df)
         prediction_2 = tuned_meta_model_2.predict(input_df)
 
-        # Return both predictions in JSON format
         return jsonify({
-            'prediction_3': prediction_3[0],  # First model's prediction
-            'prediction_2': prediction_2[0]   # Second model's prediction
+            'prediction_3': prediction_3[0],
+            'prediction_2': prediction_2[0]
         })
 
     except Exception as e:
         return jsonify({'error': str(e)})
+
+if __name__ == "__main__":
+    app.run(debug=True)
