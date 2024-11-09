@@ -6,6 +6,9 @@ app = Flask(__name__)
 
 meta_model_3 = joblib.load('models/meta_model_3.pkl')
 tuned_meta_model_2 = joblib.load('models/tuned_meta_model_2.pkl')
+@app.route('/')
+def home():
+    return "Premier League Match Prediction API is running"
 
 @app.route('/predict', methods=['POST'])
 def predict():
