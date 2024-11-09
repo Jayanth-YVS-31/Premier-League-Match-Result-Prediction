@@ -17,6 +17,7 @@ def predict():
         # For GET requests, we'll retrieve data from query parameters
         if request.method == 'GET':
             week = request.args.get('week')
+            date = request.args.get('matchDate')
             home_team = request.args.get('homeTeam')
             away_team = request.args.get('awayTeam')
             lastHomeResult = int(request.args.get('lastHomeResult'))
@@ -30,6 +31,7 @@ def predict():
         elif request.method == 'POST':
             data = request.json
             week = data.get('week')
+            date = request.args.get('matchDate')
             home_team = data.get('homeTeam')
             away_team = data.get('awayTeam')
             lastHomeResult = data.get('lastHomeResult')

@@ -294,7 +294,7 @@
         <script>
             document.getElementById('matchForm').addEventListener('submit', async (event) => {
                 event.preventDefault();
-        
+            
                 // Collect form data
                 const formData = {
                     week: document.getElementById('week').value,
@@ -308,7 +308,7 @@
                     awayStreak: document.getElementById('awayStreak').value,
                     awayRestDays: document.getElementById('awayRestDays').value
                 };
-        
+            
                 try {
                     // Send data to the Flask API
                     const response = await fetch('http://127.0.0.1:5000/predict', {
@@ -318,10 +318,10 @@
                         },
                         body: JSON.stringify(formData)
                     });
-        
+            
                     // Parse the response and display both predictions
                     const result = await response.json();
-        
+            
                     // Display prediction from meta_model_3 (win=2, draw=1, lose=0)
                     let prediction_3_result = '';
                     if (result.prediction_3 === 2) {
@@ -331,18 +331,18 @@
                     } else {
                         prediction_3_result = 'Lose';
                     }
-        
+            
                     // Display prediction from tuned_meta_model_2 (win=1, loss=0)
                     const prediction_2_result = result.prediction_2 === 1 ? 'Win' : 'Loss';
-        
+            
                     // Combine and display the results
                     document.getElementById('result').innerText = `Prediction that considers [Win, Draw, Loss]: ${prediction_3_result} |||||||| Prediction that considers [Win, others]: ${prediction_2_result}`;
                 } catch (error) {
-                    console.error('Error:', error);
-                    document.getElementById('result').innerText = 'Error in prediction';
+                    console.error('Error occurred while fetching the prediction:', error);
+                    document.getElementById('result').innerText = 'There was an error with the prediction request. Please try again later.';
                 }
             });
-        </script>
+        </script>        
         
     </main>
 </body>
