@@ -3,6 +3,10 @@ import pandas as pd
 import joblib  # or pickle if you're using that to load models
 
 app = Flask(__name__)
+from flask_cors import CORS
+# app = Flask(__name__)
+CORS(app)  # This will allow all domains to make requests
+
 
 meta_model_3 = joblib.load('models/meta_model_3.pkl')
 tuned_meta_model_2 = joblib.load('models/tuned_meta_model_2.pkl')
@@ -60,18 +64,20 @@ def predict():
         season_phase = week_mapping.get(week, -1)
 
         input_data = {
-            'HomeWinStreak_5': homeStreak,
-            'AwayWinStreak_5': awayStreak,
-            'LastHomeResult': lastHomeResult,
-            'LastAwayResult': lastAwayResult,
-            'SeasonPhase_Early': 1 if season_phase == 0 else 0,
-            'SeasonPhase_Mid': 1 if season_phase == 1 else 0,
-            'SeasonPhase_End': 1 if season_phase == 2 else 0,
-            'DaysSinceLastHomeMatch': homeRestDays,
-            'DaysSinceLastAwayMatch': awayRestDays,
-            'Home_team': home_team_mapping.get(home_team, -1),
-            'Away_team': home_team_mapping.get(away_team, -1)
-        }
+    'HomeWinStreak_5': int(homeStreak) if homeStreak is not None else 0,
+    'AwayWinStreak_5': int(awayStreak) if awayStreak is not None else 0,
+    'LastHomeResult': int(lastHomeResult) if lastHomeResult is not None else 0,
+    'LastAwayResult': int(lastAwayResult) if lastAwayResult is not None else 0,
+    'SeasonPhase_Early': 1 if season_phase == 0 else 0,
+    'SeasonPhase_Mid': 1 if season_phase == 1 else 0,
+    'SeasonPhase_End': 1 if season_phase == 2 else 0,
+    'DaysSinceLastHomeMatch': int(homeRestDays) if homeRestDays is not None else 0,
+    'DaysSinceLastAwayMatch': int(awayRestDays) if awayRestDays is not None else 0,
+    'Home_team': int(home_team_mapping.get(home_team, -1)),
+    'Away_team': int(home_team_mapping.get(away_team, -1))
+}
+
+
 
         input_df = pd.DataFrame([input_data])
 
