@@ -53,11 +53,15 @@ def predict():
         # Convert to DataFrame (if needed by the model)
         input_df = pd.DataFrame([input_data])
 
-        # Predict using the loaded model
-        prediction = model.predict(input_df)
+        # Predict using the two models
+        prediction_3 = meta_model_3.predict(input_df)
+        prediction_2 = tuned_meta_model_2.predict(input_df)
 
-        # Return the prediction result in JSON format
-        return jsonify({'prediction': prediction[0]})
+        # Return both predictions in JSON format
+        return jsonify({
+            'prediction_3': prediction_3[0],  # First model's prediction
+            'prediction_2': prediction_2[0]   # Second model's prediction
+        })
 
     except Exception as e:
         return jsonify({'error': str(e)})
